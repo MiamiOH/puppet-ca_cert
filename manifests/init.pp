@@ -76,10 +76,11 @@ class ca_cert (
   }
 
   if $install_package {
-    package { 'ca-certificates':
+    ensure_packages(['ca-certificates'], {
       ensure => $package_ensure,
       name   => $package_name,
-    }
+    })
+
     if $package_ensure != 'absent' {
       Package['ca-certificates'] -> Ca_cert::Ca <| |>
     }
